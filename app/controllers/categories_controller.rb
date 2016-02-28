@@ -14,6 +14,11 @@ class CategoriesController < ApplicationController
     render json: @category, include: :recommendations
   end
 
+  def update
+    @category.update(category_params)
+    render json: @category
+  end
+
   def destroy
     @category.destroy
     render json: @category
@@ -23,5 +28,9 @@ class CategoriesController < ApplicationController
 
   def set_category
     @category = Category.find(params[:id])
+  end
+
+  def category_params
+    params.require(:category).permit(:name)
   end
 end
